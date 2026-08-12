@@ -56,7 +56,8 @@ const TRADUCTIONS = [
   ["<a href=\"terms.html\">Conditions d'utilisation</a>", '<a href="terms.html">Terms of use</a>'],
 
   // Hero.
-  ['<p class="etat-ligne">ÉCRITE — PAS ENCORE PUBLIÉE</p>', '<p class="etat-ligne">WRITTEN — NOT YET RELEASED</p>'],
+  ['<p class="etat-ligne">PUBLIÉE — WINDOWS ET LINUX</p>', '<p class="etat-ligne">RELEASED — WINDOWS AND LINUX</p>'],
+  ['>Télécharger — Windows et Linux<', '>Download — Windows and Linux<'],
   ['<h1>Le plan de feu, <span class="grad-text">et son patch</span>.</h1>', '<h1>The lighting plan, <span class="grad-text">and its patch</span>.</h1>'],
   [
     `Les perches, l'inventaire, les appareils accrochés, et ce qui les allume — un circuit de
