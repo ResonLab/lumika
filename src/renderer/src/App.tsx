@@ -3,6 +3,8 @@ import Inventaire from './pages/Inventaire'
 import Perches from './pages/Perches'
 import PlanDeFeu from './pages/PlanDeFeu'
 import Patch from './pages/Patch'
+import Scene from './pages/Scene'
+import FeuilleDePatch from './pages/FeuilleDePatch'
 import ConditionsUtilisation from './components/ConditionsUtilisation'
 import { definirLangue, LANGUES, t, type Langue } from '../../partage/i18n'
 import { VERSION_CONDITIONS } from '../../partage/conditions'
@@ -42,7 +44,7 @@ function langueInitiale(): Langue {
   return 'fr'
 }
 
-type Module = 'plan' | 'perches' | 'patch' | 'inventaire'
+type Module = 'plan' | 'scene' | 'perches' | 'patch' | 'feuille' | 'inventaire'
 
 export default function App(): React.JSX.Element {
   const [module, setModule] = useState<Module>('plan')
@@ -82,8 +84,10 @@ export default function App(): React.JSX.Element {
 
   const modules: { id: Module; cle: Parameters<typeof t>[0] }[] = [
     { id: 'plan', cle: 'app.planDeFeu' },
+    { id: 'scene', cle: 'app.scene' },
     { id: 'perches', cle: 'app.perches' },
     { id: 'patch', cle: 'app.patch' },
+    { id: 'feuille', cle: 'app.feuille' },
     { id: 'inventaire', cle: 'app.inventaire' }
   ]
 
@@ -125,7 +129,9 @@ export default function App(): React.JSX.Element {
       <main>
         {module === 'plan' && <PlanDeFeu />}
         {module === 'perches' && <Perches />}
+        {module === 'scene' && <Scene />}
         {module === 'patch' && <Patch />}
+        {module === 'feuille' && <FeuilleDePatch />}
         {module === 'inventaire' && <Inventaire />}
       </main>
     </div>

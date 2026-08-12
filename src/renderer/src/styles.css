@@ -324,3 +324,113 @@ li {
   gap: 0.5rem;
   margin: 0.8rem 0;
 }
+
+/* ── La vue de scène, du dessus ────────────────────────────────────────────
+   Le SVG travaille directement en mètres : la viewBox porte l'échelle, donc
+   aucune conversion ne traîne dans le composant. Les épaisseurs sont donc en
+   mètres elles aussi — d'où des valeurs qui paraissent minuscules. */
+.plan-scene {
+  width: 100%;
+  height: auto;
+  max-height: 70vh;
+  background: var(--fond);
+  border-radius: 8px;
+}
+
+.ligne-cadre {
+  stroke: var(--rose);
+  stroke-width: 0.14;
+}
+
+.ligne-axe {
+  stroke: var(--trait);
+  stroke-width: 0.05;
+  stroke-dasharray: 0.4 0.4;
+}
+
+.ligne-perche {
+  stroke: var(--discret);
+  stroke-width: 0.12;
+  stroke-linecap: round;
+}
+
+.etiquette-plan {
+  fill: var(--discret);
+  font-size: 0.55px;
+}
+
+.numero-plan {
+  fill: #1a0a12;
+  font-size: 0.45px;
+  font-weight: 700;
+}
+
+.appareil-plan.trad {
+  fill: var(--rose);
+}
+
+.appareil-plan.dmx {
+  fill: var(--vert);
+}
+
+/* ── L'impression de la feuille de patch ───────────────────────────────────
+   **Le seul écran fait pour quitter l'écran.** Il se lit debout, sous une
+   perche, souvent en lumière de service : sur papier, du texte clair sur fond
+   sombre ne s'imprime pas — il vide la cartouche et reste illisible. La feuille
+   bascule donc en noir sur blanc, et tout ce qui ne sert qu'à l'écran
+   disparaît. */
+.titre-impression {
+  display: none;
+}
+
+@media print {
+  body {
+    background: #fff;
+    color: #000;
+  }
+
+  .entete,
+  .sans-impression {
+    display: none !important;
+  }
+
+  .titre-impression {
+    display: block;
+    font-size: 1.3rem;
+    margin: 0 0 1rem;
+  }
+
+  main {
+    padding: 0;
+    max-width: none;
+  }
+
+  .carte {
+    background: #fff;
+    border: 1px solid #999;
+    /* Une ligne coupée entre deux pages se relit mal quand on cherche un
+       circuit : on laisse le bloc entier basculer sur la page suivante. */
+    break-inside: avoid;
+    overflow: visible;
+  }
+
+  .carte.alerte {
+    border: 2px solid #000;
+  }
+
+  th,
+  td {
+    border-bottom: 1px solid #ccc;
+    color: #000;
+  }
+
+  .discret,
+  th {
+    color: #444;
+  }
+
+  .avertissement {
+    border-left: 3px solid #000;
+    color: #000;
+  }
+}

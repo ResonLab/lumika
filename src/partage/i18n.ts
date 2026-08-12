@@ -24,6 +24,8 @@ const TEXTES = {
   'app.perches': { fr: 'Perches', en: 'Bars' },
   'app.inventaire': { fr: 'Inventaire', en: 'Inventory' },
   'app.patch': { fr: 'Patch', en: 'Patch' },
+  'app.scene': { fr: 'Scène', en: 'Stage' },
+  'app.feuille': { fr: 'Feuille', en: 'Sheet' },
 
   // --- Actions communes ---
   'action.ajouter': { fr: 'Ajouter', en: 'Add' },
@@ -139,6 +141,44 @@ const TEXTES = {
   'patch.pasUnControle': {
     fr: 'Ce calcul n’est pas un contrôle électrique. Il ignore la section des câbles, l’état du bloc et la simultanéité réelle. Le raccordement relève d’un électricien.',
     en: 'This calculation is not an electrical inspection. It ignores cable section, the state of the rack and real simultaneity. Wiring is the work of an electrician.'
+  },
+
+  // --- Vue de scène ---
+  'scene.titre': { fr: 'Vue de scène', en: 'Stage view' },
+  'scene.explication': {
+    fr: 'Le plateau vu du dessus. L’écran des perches montre le gril de face — utile pour voir deux appareils trop proches sur une même barre — mais il ne dit rien de la profondeur, et c’est elle qui décide de tout : une face qui vient de trop loin écrase les volumes.',
+    en: 'The stage seen from above. The bars screen shows the grid from the front — useful to spot two fixtures too close on the same bar — but says nothing about depth, and depth decides everything: front light coming from too far flattens the volumes.'
+  },
+  'scene.vide': {
+    fr: 'Aucune perche. Ajoutez-en dans l’écran Perches : le plan se dessinera ici.',
+    en: 'No bars yet. Add some in the Bars screen: the plan will be drawn here.'
+  },
+  'scene.cadre': { fr: 'nu du cadre', en: 'proscenium line' },
+  'scene.jardin': { fr: 'jardin', en: 'stage right' },
+  'scene.cour': { fr: 'cour', en: 'stage left' },
+  'scene.legende': {
+    fr: 'Rose : circuit de gradateur. Vert : adresse DMX. Les cotes se comptent depuis le nu du cadre — une perche de face est donc devant lui.',
+    en: 'Pink: dimmer channel. Green: DMX address. Distances are measured from the proscenium line — a front-of-house bar therefore sits before it.'
+  },
+
+  // --- Feuille de patch ---
+  'feuille.titre': { fr: 'Feuille de patch', en: 'Patch sheet' },
+  'feuille.explication': {
+    fr: 'Le seul écran fait pour quitter l’écran. Il se lit debout, sous une perche, avec les mains sales — donc il est trié par patch et non par numéro d’appareil : on ne cherche pas « où est le 12 », on cherche « qu’est-ce qu’il y a sur le circuit 7 ».',
+    en: 'The one screen made to leave the screen. It is read standing, under a bar, with dirty hands — so it is sorted by patch, not by fixture number: you do not look for "where is 12", you look for "what is on channel 7".'
+  },
+  'feuille.imprimer': { fr: 'Imprimer', en: 'Print' },
+  'feuille.gradateurs': { fr: 'Sur circuits de gradateur', en: 'On dimmer channels' },
+  'feuille.dmx': { fr: 'Sur adresse DMX', en: 'On DMX address' },
+  'feuille.circuit': { fr: 'Circuit', en: 'Channel' },
+  'feuille.charges': { fr: 'Charge par circuit', en: 'Load per channel' },
+  'feuille.sansPatch': {
+    fr: '{nombre} appareil(s) sans patch',
+    en: '{nombre} fixture(s) with no patch'
+  },
+  'feuille.sansPatchExplication': {
+    fr: 'Ils sont en tête exprès. Un appareil accroché que personne n’a patché, c’est ce qu’on découvre au noir.',
+    en: 'They are listed first on purpose. A hung fixture nobody patched is what you discover in the blackout.'
   },
 
   // --- Conditions d'utilisation ---
