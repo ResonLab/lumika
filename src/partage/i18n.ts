@@ -141,6 +141,20 @@ const TEXTES = {
     en: 'This calculation is not an electrical inspection. It ignores cable section, the state of the rack and real simultaneity. Wiring is the work of an electrician.'
   },
 
+  // --- Conditions d'utilisation ---
+  'conditions.titre': { fr: "Conditions d'utilisation", en: 'Terms of use' },
+  'conditions.version': { fr: 'Version {version}', en: 'Version {version}' },
+  'conditions.defilerJusquauBout': {
+    fr: 'Faites défiler le texte jusqu’en bas pour continuer.',
+    en: 'Scroll to the bottom of the text to continue.'
+  },
+  'conditions.jaiLu': {
+    fr: 'J’ai lu et j’accepte ces conditions.',
+    en: 'I have read and accept these terms.'
+  },
+  'conditions.accepter': { fr: 'Accepter et continuer', en: 'Accept and continue' },
+  'conditions.lireSurLeSite': { fr: 'Lire sur le site', en: 'Read on the website' },
+
   // --- Paramètres ---
   'param.langue': { fr: 'Langue', en: 'Language' },
 

@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lumika — conditions d'utilisation</title>
+<meta name="description" content="Les conditions d'utilisation d'Lumika : ce que le calcul et le conseil de placement font, et ce qu'ils ne font pas." />
+<link rel="icon" href="lumika.svg" type="image/svg+xml" />
+<meta property="og:title" content="Lumika" />
+<meta property="og:description" content="Les conditions d'utilisation d'Lumika : ce que le calcul et le conseil de placement font, et ce qu'ils ne font pas." />
+<meta property="og:type" content="website" />
+
+<script>
+/* Le thème est appliqué avant le premier rendu : sans cela, une page sombre
+   clignoterait en blanc le temps que le script s'exécute. */
+(function () {
+  try {
+    var choix = localStorage.getItem('resonlab-theme')
+    if (choix) document.documentElement.setAttribute('data-theme', choix)
+  } catch (e) { /* navigation privée : on suit le réglage du système */ }
+})()
+</script>
+
+<style>
+  :root {
+    --bg: #0c0b10;
+    --bg-2: #08070c;
+    --card: #16151d;
+    --border: rgba(255,255,255,.09);
+    --fg: #f1eff5;
+    --fg-dim: #9d97ab;
+    --fg-faint: #6f6a80;
+    --lien: #FF7EB6;
+    /* Le dégradé d'Acustika : le violet de la salle. */
+    --grad: linear-gradient(120deg, #FF7EB6, #A8154F);
+    --aurora-op: .30;
+    --radius: 14px;
+    --maxw: 1120px;
+    --ease: cubic-bezier(.16, 1, .3, 1);
+  }
+  @media (prefers-color-scheme: light) {
+    /* Sans JavaScript, on suit le réglage du système. */
+    :root:not([data-theme]) {
+      --bg: #f7f6fa; --bg-2: #efedf4; --card: #ffffff;
+      --border: rgba(17,13,26,.12);
+      --fg: #16121f; --fg-dim: #544d66; --fg-faint: #7b7390;
+      --aurora-op: .17; --lien: #6d4ae0;
+    }
+  }
+  /* Choix explicite de l'utilisateur : il l'emporte sur le système. */
+  :root[data-theme="clair"] {
+    --bg: #f7f6fa; --bg-2: #efedf4; --card: #ffffff;
+    --border: rgba(17,13,26,.12);
+    --fg: #16121f; --fg-dim: #544d66; --fg-faint: #7b7390;
+    --aurora-op: .17; --lien: #6d4ae0;
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+
+  /* ─── transition d'une page à l'autre ────────────────────── */
+  @view-transition { navigation: auto; }
+  @media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root) { animation: sortiePage .32s cubic-bezier(.4,0,1,1) both; }
+    ::view-transition-new(root) { animation: entreePage .48s cubic-bezier(.16,1,.3,1) both; }
+    header .brand img { view-transition-name: logo-acustika; }
+  }
+  @keyframes sortiePage { to { opacity: 0; transform: translateY(-14px) scale(.99); } }
+  @keyframes entreePage { from { opacity: 0; transform: translateY(20px) scale(.995); } }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.6; text-wrap: pretty; overflow-x: hidden;
+  }
+  a { color: var(--lien); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  /* ─── fond animé ─────────────────────────────────────────── */
+  .aurora { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+  .aurora i { position: absolute; display: block; border-radius: 50%; filter: blur(100px); opacity: var(--aurora-op); }
+  .aurora .a1 { width: 540px; height: 540px; background: #FF7EB6; top: -180px; left: -140px; animation: derive1 34s ease-in-out infinite alternate; }
+  .aurora .a2 { width: 600px; height: 600px; background: #A8154F; top: -120px; right: -200px; animation: derive2 42s ease-in-out infinite alternate; }
+  .aurora .a3 { width: 460px; height: 460px; background: #4C1D95; top: 46%; left: 42%; animation: derive3 50s ease-in-out infinite alternate; opacity: calc(var(--aurora-op) * .75); }
+  @keyframes derive1 { to { transform: translate3d(140px, 90px, 0) scale(1.18); } }
+  @keyframes derive2 { to { transform: translate3d(-120px, 140px, 0) scale(1.12); } }
+  @keyframes derive3 { to { transform: translate3d(-180px, -110px, 0) scale(1.25); } }
+
+  /* ─── barre de progression de lecture ────────────────────── */
+  .progres {
+    position: fixed; top: 0; left: 0; height: 3px; width: 100%;
+    transform: scaleX(0); transform-origin: left;
+    background: var(--grad); z-index: 20;
+  }
+
+  /* ─── révélation au défilement ───────────────────────────── */
+  .js .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .8s var(--ease) var(--d, 0s), transform .8s var(--ease) var(--d, 0s);
+    will-change: opacity, transform;
+  }
+  .js .reveal.vu { opacity: 1; transform: none; }
+
+  .grad-text {
+    background: var(--grad); background-size: 220% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: flux 11s ease-in-out infinite;
+  }
+  @keyframes flux { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+  /* ─── en-tête ────────────────────────────────────────────── */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease);
+  }
+  header.pose { border-bottom-color: var(--border); box-shadow: 0 10px 30px -24px rgba(0,0,0,.9); }
+  .bar { display: flex; align-items: center; gap: 16px; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 600; letter-spacing: -.01em; font-size: 19px; color: var(--fg); }
+  .brand:hover { text-decoration: none; }
+  .brand img { display: block; transition: transform .6s var(--ease); }
+  .brand:hover img { transform: rotate(-8deg) scale(1.08); }
+  .nav { margin-left: auto; display: flex; align-items: center; gap: 26px; }
+  .nav a { color: var(--fg-dim); font-size: 15px; position: relative; }
+  .nav a::after {
+    content: ''; position: absolute; left: 0; right: 0; bottom: -6px; height: 1.5px;
+    background: var(--grad); transform: scaleX(0); transform-origin: right;
+    transition: transform .4s var(--ease);
+  }
+  .nav a:hover { color: var(--fg); text-decoration: none; }
+  .nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .nav .langue { font-variant: small-caps; letter-spacing: .04em; }
+  @media (max-width: 880px) { .nav .hide-sm { display: none; } .nav { gap: 18px; } .nav a { font-size: 14px; } }
+  @media (max-width: 700px) { .brand .nom { display: none; } }
+
+  /* ─── bouton clair / sombre ──────────────────────────────── */
+  .theme {
+    margin-left: 18px; flex: none;
+    width: 40px; height: 40px; display: grid; place-items: center;
+    background: transparent; border: 1px solid var(--border);
+    border-radius: 10px; color: var(--fg-dim); cursor: pointer;
+    transition: color .35s var(--ease), border-color .35s var(--ease), transform .35s var(--ease);
+  }
+  .theme:hover { color: var(--fg); border-color: rgba(255,126,182,.5); transform: translateY(-1px); }
+  .theme svg { display: block; }
+  .theme .i-clair { display: none; }
+  :root[data-theme="sombre"] .theme .i-clair { display: block; }
+  :root[data-theme="sombre"] .theme .i-sombre { display: none; }
+  @media (max-width: 700px) { .theme { margin-left: 12px; width: 36px; height: 36px; } }
+
+  /* ─── boutons ────────────────────────────────────────────── */
+  .btn {
+    position: relative; overflow: hidden;
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    padding: 13px 22px; border-radius: 10px;
+    background: var(--g, var(--grad)); color: #f6f2ff;
+    font-weight: 600; font-size: 15px; min-height: 46px;
+    border: 0; cursor: pointer; white-space: nowrap;
+    transition: transform .35s var(--ease), box-shadow .35s var(--ease), filter .35s var(--ease);
+    box-shadow: 0 10px 26px -16px rgba(168,21,79,.9);
+  }
+  .btn::before {
+    content: ''; position: absolute; top: 0; bottom: 0; left: -75%; width: 55%;
+    background: linear-gradient(100deg, transparent, rgba(255,255,255,.42), transparent);
+    transform: skewX(-18deg); transition: left .7s var(--ease);
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-2px); filter: brightness(1.05); box-shadow: 0 18px 38px -18px rgba(168,21,79,.95); }
+  .btn:hover::before { left: 125%; }
+  .btn:active { transform: translateY(0); }
+  .btn-ghost { background: transparent; color: var(--fg); border: 1px solid var(--border); box-shadow: none; }
+  .btn-ghost:hover { border-color: rgba(255,126,182,.5); box-shadow: none; }
+
+  /* ─── hero ───────────────────────────────────────────────── */
+  .hero { padding-top: 96px; padding-bottom: 76px; }
+  h1 { font-size: clamp(34px, 5.4vw, 58px); line-height: 1.08; letter-spacing: -.03em; margin: 0 0 22px; max-width: 17ch; font-weight: 650; }
+  .hero p.chapo { font-size: clamp(17px, 2.1vw, 20px); color: var(--fg-dim); max-width: 48ch; margin: 0 0 34px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  body .hero > * { opacity: 0; transform: translateY(22px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  body.charge .hero > * { opacity: 1; transform: none; }
+  body.charge .hero > *:nth-child(2) { transition-delay: .09s; }
+  body.charge .hero > *:nth-child(3) { transition-delay: .18s; }
+  body.charge .hero > *:nth-child(4) { transition-delay: .27s; }
+  .etat-ligne {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.5px; color: var(--fg-faint); letter-spacing: .1em; margin: 0 0 18px;
+  }
+
+  /* ─── sections ───────────────────────────────────────────── */
+  section { padding: 90px 0; }
+  h2.titre { font-size: clamp(25px, 3.4vw, 34px); letter-spacing: -.02em; margin: 0 0 12px; font-weight: 640; }
+  .intro { color: var(--fg-dim); max-width: 54ch; margin: 0 0 40px; }
+
+  .bande { background: var(--bg-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .cards.deux { grid-template-columns: repeat(2, 1fr); }
+  .card {
+    position: relative; overflow: hidden;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 26px;
+    transition: transform .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);
+  }
+  .card::after {
+    content: ''; position: absolute; left: 0; right: 0; top: 0; height: 2px;
+    background: var(--grad); transform: scaleX(0); transform-origin: left;
+    transition: transform .55s var(--ease);
+  }
+  .card:hover { transform: translateY(-6px); border-color: rgba(255,126,182,.38); box-shadow: 0 24px 48px -30px rgba(168,21,79,.75); }
+  .card:hover::after { transform: scaleX(1); }
+  .card h3 { margin: 0 0 8px; font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+  .card p { margin: 0 0 8px; color: var(--fg-dim); font-size: 15.5px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card .num {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 12.5px; color: var(--fg-faint); display: block; margin-bottom: 14px;
+    transition: color .45s var(--ease), letter-spacing .45s var(--ease);
+  }
+  .card:hover .num { color: #FF7EB6; letter-spacing: .12em; }
+  .card.bientot { opacity: .72; }
+  .card.bientot:hover { transform: none; box-shadow: none; border-color: var(--border); }
+
+  /* ─── mise en avant du calculateur ───────────────────────── */
+  .phare {
+    display: grid; grid-template-columns: 1.15fr 1fr; gap: 34px; align-items: center;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 34px;
+  }
+  .phare h3 { margin: 0 0 10px; font-size: clamp(21px, 2.6vw, 27px); letter-spacing: -.02em; font-weight: 640; }
+  .phare p { color: var(--fg-dim); margin: 0 0 14px; }
+  .patch {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 13.5px; line-height: 2; color: var(--fg-dim);
+    background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 18px 20px; overflow-x: auto;
+  }
+  .patch b { color: var(--fg); font-weight: 600; }
+  .patch .u2 { color: #A8154F; }
+  @media (max-width: 880px) { .phare { grid-template-columns: 1fr; } }
+
+  /* ─── pied ───────────────────────────────────────────────── */
+  footer { border-top: 1px solid var(--border); padding: 54px 0 64px; color: var(--fg-dim); font-size: 15px; }
+  .famille { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; }
+  .famille img { width: 28px; height: 28px; opacity: .8; transition: opacity .4s var(--ease), transform .4s var(--ease); }
+  .famille img:hover { opacity: 1; transform: translateY(-3px); }
+  footer p { margin: 0 0 8px; }
+
+  @media (max-width: 980px) { .cards { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 700px) {
+    .cards, .cards.deux { grid-template-columns: 1fr; }
+    section { padding: 64px 0; }
+    .hero { padding-top: 64px; padding-bottom: 54px; }
+    .phare { padding: 24px; }
+  }
+  /* Quelqu'un qui demande moins d'animation ne doit pas avoir à la subir. */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .card:hover, .btn:hover { transform: none; }
+    .progres { display: none; }
+  }
+</style>
+</head>
+
+<body>
+<div class="aurora" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>
+<div class="progres" id="progres" aria-hidden="true"></div>
+
+<header id="entete">
+  <div class="wrap bar">
+    <a class="brand" href="./">
+      <img src="lumika.svg" alt="" width="30" height="30" />
+      <span class="nom">Lumika</span>
+    </a>
+    <nav class="nav">
+      <a href="index.html#ce-quelle-fait">Ce qu'elle fait</a>
+      <a href="index.html#honnetete" class="hide-sm">Ce qu'elle ne fait pas</a>
+      <a href="index.html#principes" class="hide-sm">Nos principes</a>
+      <a href="https://github.com/ResonLab/lumika">GitHub</a>
+      <a href="en/terms.html" class="langue" hreflang="en">EN</a>
+      <button class="theme" id="theme" type="button" aria-label="Changer le thème">
+        <svg class="i-sombre" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+        </svg>
+        <svg class="i-clair" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <circle cx="12" cy="12" r="4.2"/>
+          <path d="M12 2v2.6M12 19.4V22M2 12h2.6M19.4 12H22M4.9 4.9l1.9 1.9M17.2 17.2l1.9 1.9M19.1 4.9l-1.9 1.9M6.8 17.2l-1.9 1.9"/>
+        </svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero wrap">
+    <p class="etat-ligne">VERSION 1.0</p>
+    <h1>Conditions <span class="grad-text">d'utilisation</span>.</h1>
+    <p class="chapo">En résumé : vos données restent chez vous, et la répartition sur les circuits est une aide à la préparation — jamais un contrôle électrique. Le raccordement relève d'un électricien, et l'accroche de personnes formées.</p>
+    <p class="chapo">Ce texte complète les <a href="https://resonlab.github.io/conditions.html">conditions générales de ResonLab</a>.</p>
+  </section>
+
+  <section class="wrap">
+    <h2 class="titre reveal">1. Ce qu'est Lumika</h2>
+    <p class="intro reveal">Lumika tient le plan de feu d'un lieu : les perches, l'inventaire des projecteurs, des lampes et des accessoires, les appareils accrochés, et le patch — circuit de gradateur pour le traditionnel, adresse DMX pour le reste.</p>
+    <p class="intro reveal">Vos données restent sur votre machine. Pas de compte, pas d'abonnement, aucune donnée qui sort.</p>
+
+    <h2 class="titre reveal">2. La répartition sur les circuits n'est pas un contrôle électrique</h2>
+    <p class="intro reveal">C'est le point le plus important de ce document. Lumika additionne les puissances que vous avez saisies et les répartit sur des circuits de gradateur. Elle ne vérifie rien de votre installation.</p>
+    <p class="intro reveal">Elle ignore la section et la longueur des câbles, l'état du bloc de puissance, la qualité des connexions, la présence d'un différentiel, la température de la salle et la simultanéité réelle des circuits. Elle ignore aussi la puissance disponible en amont : quatre blocs pleins peuvent tenir chacun et faire sauter l'alimentation générale.</p>
+    <p class="intro reveal">La marge de 10 % appliquée par défaut à chaque circuit est une pratique de terrain, pas une norme. Une lampe halogène tire un fort appel de courant à l'allumage, et un circuit chargé au maximum déclenche au premier plein feu. Cette marge ne remplace pas le dimensionnement d'une installation par une personne qualifiée.</p>
+    <p class="intro reveal">Une erreur de branchement peut faire disjoncter pendant une représentation, endommager un gradateur, provoquer un incendie ou blesser quelqu'un. Le raccordement électrique relève d’un électricien, et la responsabilité de votre installation reste entièrement la vôtre.</p>
+
+    <h2 class="titre reveal">3. Le patch est une aide à la préparation, pas une garantie</h2>
+    <p class="intro reveal">Lumika signale les chevauchements de canaux à partir de ce que vous avez saisi : l'adresse et le nombre de circuits de chaque bloc, l'adresse et le nombre de canaux de chaque appareil. Un mode mal renseigné, un bloc oublié ou une adresse fausse donnent un patch faux sans que rien ne le signale.</p>
+    <p class="intro reveal">Elle ne connaît que ce que vous lui décrivez. Elle ne voit ni le boîtier de scène, ni la longueur de la ligne DMX, ni les terminaisons, ni les splitters — autant de causes de pannes qui n'ont rien à voir avec l'adressage.</p>
+    <p class="intro reveal">Vérifiez le patch sur le matériel avant la représentation. Un projecteur qui répond à la mauvaise adresse se voit tout de suite en salle, et jamais dans un tableau.</p>
+
+    <h2 class="titre reveal">4. L'accroche et le travail en hauteur ne sont pas de son ressort</h2>
+    <p class="intro reveal">Lumika enregistre où vous posez un appareil sur une perche. Elle ne calcule aucune charge, ne vérifie aucune capacité de levage, ne connaît ni les crochets, ni les élingues, ni les moteurs, ni la charge admissible du gril.</p>
+    <p class="intro reveal">Une perche surchargée ou un appareil mal accroché tombe sur le plateau. Le calcul de charge et l'accroche relèvent de personnes formées, et rien dans cette application ne s'y substitue.</p>
+
+    <h2 class="titre reveal">5. Vos données et vos sauvegardes</h2>
+    <p class="intro reveal">Lumika n'effectue pas de sauvegarde automatique. Votre plan de feu vit dans un fichier de base de données sur votre machine.</p>
+    <p class="intro reveal">Une panne de disque, un vol ou une erreur de manipulation peuvent le détruire. Copiez-le régulièrement ailleurs, et vérifiez de temps en temps que la copie s'ouvre.</p>
+
+    <h2 class="titre reveal">6. Absence de garantie</h2>
+    <p class="intro reveal">Lumika est fournie telle quelle, sans garantie de fonctionnement ininterrompu ni d'absence d'erreur. Un logiciel peut contenir des défauts, y compris dans des calculs.</p>
+    <p class="intro reveal">Ne vous reposez pas aveuglément sur une répartition de circuits, sur un contrôle de chevauchement, ni sur une feuille de patch.</p>
+
+    <h2 class="titre reveal">7. Limitation de responsabilité</h2>
+    <p class="intro reveal">Dans les limites permises par la loi, l'éditeur ne répond pas des dommages découlant de l'utilisation de Lumika : perte de données, interruption d'une représentation, matériel endommagé, dommage matériel ou corporel.</p>
+    <p class="intro reveal">Cette limitation ne s'applique pas en cas de faute grave ou intentionnelle, ni dans les situations où la loi impose une responsabilité qui ne peut être écartée. Selon votre pays, certaines de ces exclusions peuvent être sans effet à votre égard.</p>
+
+    <h2 class="titre reveal">8. Acceptation</h2>
+    <p class="intro reveal">En utilisant Lumika, vous reconnaissez avoir lu ces conditions et accepté que la sécurité de votre installation électrique et de votre accroche relève de votre seule responsabilité.</p>
+    <p class="intro reveal">Si vous n'acceptez pas ces conditions, n'utilisez pas l'application.</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="famille">
+      <img src="lumika.svg" alt="Acustika" width="28" height="28" />
+      <img src="resonlab.svg" alt="ResonLab" width="28" height="28" />
+    </div>
+    <p><strong>Lumika</strong> — une application de <a href="https://resonlab.github.io">ResonLab</a>, Valais, Suisse.</p>
+    <p><a href="mailto:resonlab@proton.me">resonlab@proton.me</a> · <a href="https://github.com/ResonLab/lumika">github.com/ResonLab/lumika</a></p>
+    <p>Logiciel libre, sous licence MIT.</p>
+    <p><a href="conditions.html">Conditions d'utilisation</a></p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var racine = document.documentElement;
+  // Les états « invisible avant animation » ne s'appliquent que si JS tourne :
+  // sans JS, la page reste entièrement lisible.
+  racine.className += ' js';
+
+  // Entrée du hero. Filet de sécurité : requestAnimationFrame est suspendu
+  // dans un onglet en arrière-plan, le hero resterait invisible sans le délai.
+  function afficherHero() { document.body.classList.add('charge'); }
+  requestAnimationFrame(afficherHero);
+  setTimeout(afficherHero, 300);
+
+  // Révélation progressive au défilement.
+  var cibles = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entrees) {
+      entrees.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('vu'); obs.unobserve(e.target); }
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: .12 });
+    cibles.forEach(function (c) { obs.observe(c); });
+  } else {
+    // Navigateur ancien : on montre tout sans animation.
+    cibles.forEach(function (c) { c.classList.add('vu'); });
+  }
+
+  // Bascule clair / sombre, mémorisée d'une visite à l'autre. La clé est
+  // commune à tous les sites de la maison : un choix vaut pour l'ensemble.
+  var boutonTheme = document.getElementById('theme');
+  if (boutonTheme) {
+    boutonTheme.addEventListener('click', function () {
+      var sombre = racine.getAttribute('data-theme') !== 'sombre';
+      racine.setAttribute('data-theme', sombre ? 'sombre' : 'clair');
+      try { localStorage.setItem('resonlab-theme', sombre ? 'sombre' : 'clair'); } catch (e) {}
+    });
+  }
+
+  var entete = document.getElementById('entete');
+  var progres = document.getElementById('progres');
+  var tic = false;
+
+  function surDefilement() {
+    entete.classList.toggle('pose', scrollY > 8);
+    // La barre part de la hauteur réellement défilable, sinon elle n'atteint
+    // jamais 100 % sur les pages courtes.
+    var defilable = document.documentElement.scrollHeight - innerHeight;
+    var part = defilable > 0 ? scrollY / defilable : 0;
+    progres.style.transform = 'scaleX(' + Math.min(1, Math.max(0, part)) + ')';
+    tic = false;
+  }
+
+  addEventListener('scroll', function () {
+    if (tic) return;
+    tic = true;
+    requestAnimationFrame(surDefilement);
+  }, { passive: true });
+
+  surDefilement();
+})();
+</script>
+</body>
+</html>

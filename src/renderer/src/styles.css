@@ -271,3 +271,56 @@ ul {
 li {
   margin: 0.15rem 0;
 }
+
+/* ── L'écran des conditions ────────────────────────────────────────────────
+   Repris d'Acustika. **La zone de texte doit être une boîte à défilement** :
+   sans `overflow-y` ni hauteur, `onScroll` ne se déclenche jamais, la case
+   reste grise pour toujours, et l'application ne démarre plus du tout. Bug
+   réel vécu sur Scenika, trouvé en la lançant. */
+.conditions-ecran {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.conditions-carte {
+  background: var(--carte);
+  border: 1px solid var(--trait);
+  border-radius: 10px;
+  padding: 1.5rem;
+  max-width: 760px;
+  width: 100%;
+}
+
+.conditions-carte h1 {
+  margin: 0 0 0.2rem;
+}
+
+.conditions-texte {
+  max-height: 46vh;
+  overflow-y: auto;
+  border: 1px solid var(--trait);
+  border-radius: 6px;
+  padding: 0.9rem 1.1rem;
+  margin: 1rem 0;
+  background: var(--fond);
+}
+
+.conditions-texte h2 {
+  font-size: 1rem;
+  margin: 1.2rem 0 0.4rem;
+  color: var(--rose);
+}
+
+.conditions-texte section:first-child h2 {
+  margin-top: 0;
+}
+
+.conditions-case {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.8rem 0;
+}

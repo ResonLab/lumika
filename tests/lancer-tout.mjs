@@ -7,7 +7,9 @@ const DOSSIER = dirname(fileURLToPath(import.meta.url))
 const SUITES = [
   ['Patch : gradateurs et DMX', 'patch.mjs'],
   ['Application', 'application.mjs'],
-  ['Traductions', 'traductions.mjs']
+  ['Traductions', 'traductions.mjs'],
+  ['Cohérence du site', 'coherence-site.mjs'],
+  ['Cohérence des conditions', 'coherence-conditions.mjs']
 ]
 
 let echecs = 0

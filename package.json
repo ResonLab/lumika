@@ -15,7 +15,9 @@
     "package:win": "electron-vite build && electron-builder --win --publish never",
     "publish:win": "electron-vite build && electron-builder --win --publish always",
     "package:linux": "electron-vite build && electron-builder --linux --publish never",
-    "publish:linux": "electron-vite build && electron-builder --linux --publish always"
+    "publish:linux": "electron-vite build && electron-builder --linux --publish always",
+    "conditions:publier": "node scripts/publier-conditions.mjs",
+    "site:traduire": "node scripts/traduire-site.mjs"
   },
   "main": "./out/main/index.js",
   "devDependencies": {
