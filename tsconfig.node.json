@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    // Les imports internes portent leur extension .ts : Node 24 dépouille les
+    // types, donc les domaines se chargent tels quels dans les tests, sans
+    // compilation ni empaqueteur. Même procédé que Nexika.
+    "allowImportingTsExtensions": true,
+    "types": ["node", "electron-vite/node"],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowJs": true,
+    "checkJs": false,
+    "resolveJsonModule": true
+  },
+  "include": ["src/main/**/*", "src/preload/**/*", "src/partage/**/*", "commun/**/*", "electron.vite.config.ts"]
+}

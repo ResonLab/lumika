@@ -1,0 +1,49 @@
+appId: ch.resonlab.lumika
+productName: Lumika
+directories:
+  buildResources: build
+  output: release
+files:
+  - out/**/*
+  - build/icon.png
+  - package.json
+win:
+  icon: build/icon.png
+  target:
+    - target: nsis
+      arch:
+        - x64
+linux:
+  icon: build/icon.png
+  category: AudioVideo
+  # Un paquet Debian exige un mainteneur avec une adresse e-mail, sinon la
+  # construction du .deb echoue. Cette valeur est inscrite dans le paquet et
+  # visible de tous ceux qui le telechargent.
+  maintainer: ResonLab <resonlab@proton.me>
+  synopsis: Plan de feu et patch pour le theatre
+  description: >-
+    Perches, inventaire de projecteurs et de lampes, plan de feu et patch - adresse DMX ou circuit de gradateur. Toutes les donnees restent sur la machine.
+  desktop:
+    entry:
+      Name: Lumika
+      Comment: Plan de feu, perches, patch DMX et gradateurs
+  target:
+    - target: AppImage
+      arch:
+        - x64
+    - target: deb
+      arch:
+        - x64
+publish:
+  - provider: github
+    owner: ResonLab
+    repo: lumika
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Lumika
+  uninstallDisplayName: Lumika
+  deleteAppDataOnUninstall: false
