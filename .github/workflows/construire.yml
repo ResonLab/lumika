@@ -94,7 +94,12 @@ jobs:
         if: ${{ matrix.nom == 'linux' }}
         run: |
           node scripts/publier-guide.mjs
-          xvfb-run --auto-servernum npx electron scripts/guide-pdf.mjs
+          # --no-sandbox : sur un runner GitHub, chrome-sandbox n'appartient pas
+          # a root et n'est pas setuid, et Electron refuse de demarrer plutot que
+          # de tourner sans bac a sable. C'est le bon refus par defaut, mais ici
+          # la machine ne fait que produire un PDF a partir de notre propre HTML,
+          # dans un conteneur jetable : il n'y a rien a isoler de rien.
+          xvfb-run --auto-servernum npx electron --no-sandbox scripts/guide-pdf.mjs
 
       # Dit noir sur blanc ce qui a ete produit, meme quand une cible a echoue.
       - name: Lister ce qui a été produit
