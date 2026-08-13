@@ -17,7 +17,9 @@
     "package:linux": "electron-vite build && electron-builder --linux --publish never",
     "publish:linux": "electron-vite build && electron-builder --linux --publish always",
     "conditions:publier": "node scripts/publier-conditions.mjs",
-    "site:traduire": "node scripts/traduire-site.mjs"
+    "site:traduire": "node scripts/traduire-site.mjs",
+    "guide:publier": "node scripts/publier-guide.mjs",
+    "guide:pdf": "electron scripts/guide-pdf.mjs"
   },
   "main": "./out/main/index.js",
   "devDependencies": {

@@ -45,6 +45,7 @@ const TRADUCTIONS = [
   ['src="lumika.svg"', 'src="../lumika.svg"'],
   ['<a href="en/" class="langue" hreflang="en">EN</a>', '<a href="../" class="langue" hreflang="fr">FR</a>'],
   ['href="conditions.html"', 'href="terms.html"'],
+  ['<a href="guide.html">Par où commencer</a>', '<a href="guide.html">Where to start</a>'],
 
   // Navigation, pied.
   ["<a href=\"#ce-quelle-fait\">Ce qu'elle fait</a>", '<a href="#ce-quelle-fait">What it does</a>'],

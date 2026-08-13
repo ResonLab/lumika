@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lumika — terms of use</title>
-<meta name="description" content="The terms of use of Lumika: what the channel allocation does, and what it does not do." />
+<title>Lumika — where to start</title>
+<meta name="description" content="Getting started with Lumika: inventory, bars, dimmer racks, lighting plan, check. In that order, and why." />
 <link rel="icon" href="../lumika.svg" type="image/svg+xml" />
 <meta property="og:title" content="Lumika" />
-<meta property="og:description" content="The terms of use of Lumika: what the channel allocation does, and what it does not do." />
+<meta property="og:description" content="Getting started with Lumika: inventory, bars, dimmer racks, lighting plan, check. In that order, and why." />
 <meta property="og:type" content="website" />
 
 <script>
@@ -290,7 +290,7 @@
       <a href="index.html#honnetete" class="hide-sm">What it does not do</a>
       <a href="index.html#principes" class="hide-sm">Our principles</a>
       <a href="https://github.com/ResonLab/lumika">GitHub</a>
-      <a href="../conditions.html" class="langue" hreflang="fr">FR</a>
+      <a href="../guide.html" class="langue" hreflang="fr">FR</a>
       <button class="theme" id="theme" type="button" aria-label="Change theme">
         <svg class="i-sombre" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
@@ -306,47 +306,65 @@
 
 <main>
   <section class="hero wrap">
-    <p class="etat-ligne">VERSION 1.0</p>
-    <h1>Terms <span class="grad-text">of use</span>.</h1>
-    <p class="chapo">In short: your data stays with you, and the channel allocation is a preparation aid — never an electrical inspection. Wiring is the work of an electrician, and rigging of trained people.</p>
-    <p class="chapo">This text adds to the <a href="https://resonlab.github.io/en/terms.html">general ResonLab terms</a>.</p>
+    <p class="etat-ligne">GETTING STARTED</p>
+    <h1>Where to <span class="grad-text">start</span>.</h1>
+    <p class="chapo">Inventory, bars, dimmer racks, lighting plan, check. That order and no other: it is the one in which the application refuses nothing.</p>
   </section>
 
   <section class="wrap">
-    <h2 class="titre reveal">1. What Lumika is</h2>
-    <p class="intro reveal">Lumika holds the lighting plan of a venue: the bars, the inventory of fixtures, lamps and accessories, the hung units, and the patch — dimmer channel for conventional gear, DMX address for everything else.</p>
-    <p class="intro reveal">Your data stays on your machine. No account, no subscription, nothing leaves it.</p>
+    <h2 class="titre reveal">1. Fill the inventory</h2>
+    <p class="intro reveal">Always start here. A fixture that is not in the inventory cannot be hung on a bar: the lighting plan screen has nothing to offer you.</p>
+    <div class="card reveal">
+      <h3>Enter the fixtures</h3>
+      <p>Inventory tab, Fixtures sub-tab. For each one: its name, its brand, its optics — fresnel, profile, PAR, cyc — and above all its kind.</p>
+      <p class="piege"><strong>The catch</strong> — The kind decides everything else. "Conventional" means a lamp and nothing more: it will need a dimmer channel. "DMX" means LED or moving light: it gets its own address, and you must then enter its channel count. The application refuses a DMX fixture with no channel count, because it would occupy no channel and the patch check would approve a wrong plan.</p>
+    </div>
+    <div class="card reveal">
+      <h3>Enter the lamps</h3>
+      <p>Lamps sub-tab. The base matters as much as the wattage: it is what tells you whether a lamp fits a fixture. Set an alert threshold.</p>
+      <p class="piege"><strong>The catch</strong> — A threshold of zero means "not watching", not "alert as soon as it is empty". Without that distinction the whole inventory would end up flagged and nobody would look at the list any more.</p>
+    </div>
 
-    <h2 class="titre reveal">2. The channel allocation is not an electrical inspection</h2>
-    <p class="intro reveal">This is the most important point in this document. Lumika adds up the wattage you entered and spreads it across dimmer channels. It verifies nothing about your installation.</p>
-    <p class="intro reveal">It knows nothing of cable section or length, the state of the dimmer rack, the quality of the connections, whether a residual-current device is fitted, the temperature of the room, or how many channels are really up at once. It also ignores the supply upstream: four racks can each be within limits and still trip the main feed.</p>
-    <p class="intro reveal">The 10% margin applied to each channel by default is common practice, not a standard. A halogen lamp draws a large inrush current when struck, and a channel loaded to the limit trips on the first full-up. That margin does not replace the sizing of an installation by a qualified person.</p>
-    <p class="intro reveal">A wiring mistake can trip a breaker during a performance, damage a dimmer, start a fire or injure someone. Electrical connection is the work of an electrician, and responsibility for your installation remains entirely yours.</p>
+    <h2 class="titre reveal">2. Declare the bars</h2>
+    <p class="intro reveal">A bar carries fixtures. It is described by three numbers, and the first is the one people get wrong.</p>
+    <div class="card reveal">
+      <h3>Distance, height, length</h3>
+      <p>Bars tab. Distance is measured from the proscenium line — the origin of every dimension in a theatre. Height is the trim height. Length bounds the lateral position of the fixtures.</p>
+      <p class="piege"><strong>The catch</strong> — A front-of-house bar sits before the proscenium: its distance is therefore negative, and that is correct. Entering 4 instead of −4 puts your front light upstage, and the stage view shows it immediately.</p>
+    </div>
 
-    <h2 class="titre reveal">3. The patch is a preparation aid, not a guarantee</h2>
-    <p class="intro reveal">Lumika flags channel overlaps from what you entered: the address and channel count of each rack, the address and channel count of each fixture. A wrongly recorded mode, a forgotten rack or a wrong address produces a wrong patch with nothing to flag it.</p>
-    <p class="intro reveal">It only knows what you describe to it. It sees no stage box, no DMX line length, no terminators, no splitters — all of which cause faults that have nothing to do with addressing.</p>
-    <p class="intro reveal">Check the patch on the actual equipment before the performance. A fixture answering the wrong address is obvious in the room, and never in a table.</p>
+    <h2 class="titre reveal">3. Declare the dimmer racks</h2>
+    <p class="intro reveal">Do this before patching anything. It is also the step that prevents the most costly mistake of the rig.</p>
+    <div class="card reveal">
+      <h3>Address, circuit count, capacity</h3>
+      <p>Patch tab. A rack has a name, a starting DMX address, its number of circuits, and the power one circuit accepts — 2 kW is standard, many racks are 3 kW.</p>
+      <p class="piege"><strong>The catch</strong> — A rack occupies as many DMX channels as it has circuits. A 24-way rack addressed at 1 occupies channels 1 to 24. That is what gets forgotten: placing a LED bar at 12 works perfectly on paper and lights random circuits on stage. Lumika compares both in the same space and tells you before the rig.</p>
+    </div>
 
-    <h2 class="titre reveal">4. Rigging and work at height are outside its scope</h2>
-    <p class="intro reveal">Lumika records where you place a fixture on a bar. It computes no load, checks no lifting capacity, and knows nothing of hooks, safety bonds, motors, or the permissible load of the grid.</p>
-    <p class="intro reveal">An overloaded bar or a badly hung fixture falls onto the stage. Load calculation and rigging are the work of trained people, and nothing in this application substitutes for them.</p>
+    <h2 class="titre reveal">4. Build the lighting plan</h2>
+    <p class="intro reveal">Only now. Each placed fixture takes a model from the inventory, a bar, a position and a patch.</p>
+    <div class="card reveal">
+      <h3>Place, number, patch</h3>
+      <p>Lighting plan tab. The number is the one shouted during the rig — it is neither the address nor the channel. Lateral position is measured from the centre line: negative stage right, positive stage left.</p>
+      <p class="piege"><strong>The catch</strong> — The form follows the kind of fixture: a conventional one asks only for a channel, a DMX one only for an address. You can never fill both — a fixture carrying both is one nobody knows how to bring up.</p>
+    </div>
+    <div class="card reveal">
+      <h3>Let Lumika allocate</h3>
+      <p>Patch tab, "Suggest an allocation" button. It places conventional fixtures on the channels: hungriest first, then the first channel that takes it. You see the suggestion before applying it.</p>
+      <p class="piege"><strong>The catch</strong> — Whatever you patched by hand is never moved: it completes a patch, it does not redo it behind your back. And a fixture drawing more than a whole channel is refused and named, never forced in.</p>
+    </div>
 
-    <h2 class="titre reveal">5. Your data and your backups</h2>
-    <p class="intro reveal">Lumika performs no automatic backup. Your lighting plan lives in a database file on your machine.</p>
-    <p class="intro reveal">A disk failure, a theft or a slip of the hand can destroy it. Copy it elsewhere regularly, and check now and then that the copy opens.</p>
-
-    <h2 class="titre reveal">6. No warranty</h2>
-    <p class="intro reveal">Lumika is provided as is, with no warranty of uninterrupted operation or freedom from error. Software can contain defects, including in calculations.</p>
-    <p class="intro reveal">Do not rely blindly on a channel allocation, on an overlap check, or on a patch sheet.</p>
-
-    <h2 class="titre reveal">7. Limitation of liability</h2>
-    <p class="intro reveal">To the extent permitted by law, the publisher is not liable for damages arising from the use of Lumika: loss of data, interruption of a performance, damaged equipment, or damage to property or persons.</p>
-    <p class="intro reveal">This limitation does not apply in cases of gross negligence or intent, nor where the law imposes liability that cannot be excluded. Depending on your country, some of these exclusions may have no effect on you.</p>
-
-    <h2 class="titre reveal">8. Acceptance</h2>
-    <p class="intro reveal">By using Lumika you acknowledge that you have read these terms and accepted that the safety of your electrical installation and of your rigging is your responsibility alone.</p>
-    <p class="intro reveal">If you do not accept these terms, do not use the application.</p>
+    <h2 class="titre reveal">5. Check, then print</h2>
+    <p class="intro reveal">The last two screens you look at, and the ones that save your evening.</p>
+    <div class="card reveal">
+      <h3>The stage view</h3>
+      <p>Stage tab. The stage seen from above, the bars at their distance. The Bars screen shows the grid from the front; this one shows depth, and depth decides everything — front light from too far flattens the volumes.</p>
+    </div>
+    <div class="card reveal">
+      <h3>The patch sheet</h3>
+      <p>Sheet tab, Print button. This is the document you take to the rig: sorted by patch rather than by fixture number, because you do not look for "where is 12" but for "what is on channel 7".</p>
+      <p class="piege"><strong>The catch</strong> — Fixtures with no patch are listed first, on purpose. A hung fixture nobody patched is what you discover in the blackout.</p>
+    </div>
   </section>
 </main>
 

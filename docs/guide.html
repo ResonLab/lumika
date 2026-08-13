@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Lumika — terms of use</title>
-<meta name="description" content="The terms of use of Lumika: what the channel allocation does, and what it does not do." />
-<link rel="icon" href="../lumika.svg" type="image/svg+xml" />
+<title>Lumika — par où commencer</title>
+<meta name="description" content="Le guide de prise en main de Lumika : inventaire, perches, blocs de gradateurs, plan de feu, vérification. Dans cet ordre, et pourquoi." />
+<link rel="icon" href="lumika.svg" type="image/svg+xml" />
 <meta property="og:title" content="Lumika" />
-<meta property="og:description" content="The terms of use of Lumika: what the channel allocation does, and what it does not do." />
+<meta property="og:description" content="Le guide de prise en main de Lumika : inventaire, perches, blocs de gradateurs, plan de feu, vérification. Dans cet ordre, et pourquoi." />
 <meta property="og:type" content="website" />
 
 <script>
@@ -281,17 +281,17 @@
 <header id="entete">
   <div class="wrap bar">
     <a class="brand" href="./">
-      <img src="../lumika.svg" alt="" width="30" height="30" />
+      <img src="lumika.svg" alt="" width="30" height="30" />
       <span class="nom">Lumika</span>
     </a>
     <nav class="nav">
-      <a href="guide.html">Where to start</a>
-      <a href="index.html#ce-quelle-fait">What it does</a>
-      <a href="index.html#honnetete" class="hide-sm">What it does not do</a>
-      <a href="index.html#principes" class="hide-sm">Our principles</a>
+      <a href="guide.html">Par où commencer</a>
+      <a href="index.html#ce-quelle-fait">Ce qu'elle fait</a>
+      <a href="index.html#honnetete" class="hide-sm">Ce qu'elle ne fait pas</a>
+      <a href="index.html#principes" class="hide-sm">Nos principes</a>
       <a href="https://github.com/ResonLab/lumika">GitHub</a>
-      <a href="../conditions.html" class="langue" hreflang="fr">FR</a>
-      <button class="theme" id="theme" type="button" aria-label="Change theme">
+      <a href="en/guide.html" class="langue" hreflang="en">EN</a>
+      <button class="theme" id="theme" type="button" aria-label="Changer le thème">
         <svg class="i-sombre" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
         </svg>
@@ -306,60 +306,78 @@
 
 <main>
   <section class="hero wrap">
-    <p class="etat-ligne">VERSION 1.0</p>
-    <h1>Terms <span class="grad-text">of use</span>.</h1>
-    <p class="chapo">In short: your data stays with you, and the channel allocation is a preparation aid — never an electrical inspection. Wiring is the work of an electrician, and rigging of trained people.</p>
-    <p class="chapo">This text adds to the <a href="https://resonlab.github.io/en/terms.html">general ResonLab terms</a>.</p>
+    <p class="etat-ligne">GUIDE DE PRISE EN MAIN</p>
+    <h1>Par où <span class="grad-text">commencer</span>.</h1>
+    <p class="chapo">Inventaire, perches, blocs de gradateurs, plan de feu, vérification. Cet ordre-là, et pas un autre : c’est celui dans lequel l’application ne refuse rien.</p>
   </section>
 
   <section class="wrap">
-    <h2 class="titre reveal">1. What Lumika is</h2>
-    <p class="intro reveal">Lumika holds the lighting plan of a venue: the bars, the inventory of fixtures, lamps and accessories, the hung units, and the patch — dimmer channel for conventional gear, DMX address for everything else.</p>
-    <p class="intro reveal">Your data stays on your machine. No account, no subscription, nothing leaves it.</p>
+    <h2 class="titre reveal">1. Remplir l’inventaire</h2>
+    <p class="intro reveal">On commence toujours par là. Un appareil qui n’est pas dans l’inventaire ne peut pas être posé sur une perche : l’écran du plan de feu n’a rien à vous proposer.</p>
+    <div class="card reveal">
+      <h3>Saisir les projecteurs</h3>
+      <p>Onglet Inventaire, sous-onglet Projecteurs. Pour chacun : sa désignation, sa marque, son optique — PC, découpe, PAR, cyclo — et surtout son genre.</p>
+      <p class="piege"><strong>Le piège</strong> — Le genre décide de tout le reste. « Traditionnel » veut dire une lampe et rien d’autre : il lui faudra un circuit de gradateur. « DMX » veut dire LED ou asservi : il aura sa propre adresse, et vous devez alors saisir son nombre de canaux. L’application refuse un appareil DMX sans nombre de canaux, parce qu’il occuperait zéro canal et que le contrôle de patch dirait oui à un plan faux.</p>
+    </div>
+    <div class="card reveal">
+      <h3>Saisir les lampes</h3>
+      <p>Sous-onglet Lampes. Le culot compte autant que la puissance : c’est lui qui dit si une lampe va dans un projecteur. Renseignez un seuil d’alerte.</p>
+      <p class="piege"><strong>Le piège</strong> — Un seuil à zéro veut dire « je ne surveille pas », pas « alerte dès que c’est vide ». Sans cette distinction, tout l’inventaire finirait en alerte et personne ne regarderait plus la liste.</p>
+    </div>
 
-    <h2 class="titre reveal">2. The channel allocation is not an electrical inspection</h2>
-    <p class="intro reveal">This is the most important point in this document. Lumika adds up the wattage you entered and spreads it across dimmer channels. It verifies nothing about your installation.</p>
-    <p class="intro reveal">It knows nothing of cable section or length, the state of the dimmer rack, the quality of the connections, whether a residual-current device is fitted, the temperature of the room, or how many channels are really up at once. It also ignores the supply upstream: four racks can each be within limits and still trip the main feed.</p>
-    <p class="intro reveal">The 10% margin applied to each channel by default is common practice, not a standard. A halogen lamp draws a large inrush current when struck, and a channel loaded to the limit trips on the first full-up. That margin does not replace the sizing of an installation by a qualified person.</p>
-    <p class="intro reveal">A wiring mistake can trip a breaker during a performance, damage a dimmer, start a fire or injure someone. Electrical connection is the work of an electrician, and responsibility for your installation remains entirely yours.</p>
+    <h2 class="titre reveal">2. Déclarer les perches</h2>
+    <p class="intro reveal">Une perche porte des appareils. Elle se décrit par trois nombres, et le premier est celui qu’on saisit de travers.</p>
+    <div class="card reveal">
+      <h3>La distance, la hauteur, la longueur</h3>
+      <p>Onglet Perches. La distance se compte depuis le nu du cadre de scène — l’origine de toute cote au théâtre. La hauteur est celle d’accroche. La longueur borne la position latérale des appareils.</p>
+      <p class="piege"><strong>Le piège</strong> — Une perche de face est devant le cadre : sa distance est donc négative, et c’est normal. Saisir 4 au lieu de −4 met votre face au lointain, et le plan de scène le montre tout de suite.</p>
+    </div>
 
-    <h2 class="titre reveal">3. The patch is a preparation aid, not a guarantee</h2>
-    <p class="intro reveal">Lumika flags channel overlaps from what you entered: the address and channel count of each rack, the address and channel count of each fixture. A wrongly recorded mode, a forgotten rack or a wrong address produces a wrong patch with nothing to flag it.</p>
-    <p class="intro reveal">It only knows what you describe to it. It sees no stage box, no DMX line length, no terminators, no splitters — all of which cause faults that have nothing to do with addressing.</p>
-    <p class="intro reveal">Check the patch on the actual equipment before the performance. A fixture answering the wrong address is obvious in the room, and never in a table.</p>
+    <h2 class="titre reveal">3. Déclarer les blocs de gradateurs</h2>
+    <p class="intro reveal">À faire avant de patcher quoi que ce soit. C’est aussi l’étape qui évite l’erreur la plus coûteuse du montage.</p>
+    <div class="card reveal">
+      <h3>Adresse, nombre de circuits, capacité</h3>
+      <p>Onglet Patch. Un bloc porte un nom, une adresse DMX de départ, son nombre de circuits, et la puissance qu’un circuit accepte — 2 kW est le standard, beaucoup de blocs font 3 kW.</p>
+      <p class="piege"><strong>Le piège</strong> — Un bloc occupe lui-même autant de canaux DMX qu’il a de circuits. Un bloc de 24 adressé en 1 occupe les canaux 1 à 24. C’est ce qu’on oublie : y poser une barre LED en 12 marche parfaitement sur le papier et allume des circuits au hasard sur le plateau. Lumika compare les deux dans le même espace et vous le dit avant le montage.</p>
+    </div>
 
-    <h2 class="titre reveal">4. Rigging and work at height are outside its scope</h2>
-    <p class="intro reveal">Lumika records where you place a fixture on a bar. It computes no load, checks no lifting capacity, and knows nothing of hooks, safety bonds, motors, or the permissible load of the grid.</p>
-    <p class="intro reveal">An overloaded bar or a badly hung fixture falls onto the stage. Load calculation and rigging are the work of trained people, and nothing in this application substitutes for them.</p>
+    <h2 class="titre reveal">4. Poser le plan de feu</h2>
+    <p class="intro reveal">Maintenant seulement. Chaque appareil posé prend un modèle de l’inventaire, une perche, une place et un patch.</p>
+    <div class="card reveal">
+      <h3>Poser, numéroter, patcher</h3>
+      <p>Onglet Plan de feu. Le numéro est celui qu’on crie pendant le montage — ce n’est ni l’adresse ni le circuit. La position latérale se compte depuis l’axe de la salle : négatif à jardin, positif à cour.</p>
+      <p class="piege"><strong>Le piège</strong> — Le formulaire suit le genre de l’appareil : un traditionnel ne demande qu’un circuit, un DMX qu’une adresse. Il n’est jamais possible de renseigner les deux — un appareil qui porte les deux est un appareil dont personne ne sait comment on l’allume.</p>
+    </div>
+    <div class="card reveal">
+      <h3>Laisser Lumika répartir</h3>
+      <p>Onglet Patch, bouton « Proposer une répartition ». Elle place les projecteurs traditionnels sur les circuits : le plus gourmand d’abord, puis le premier circuit qui l’accepte. Vous voyez la proposition avant de l’appliquer.</p>
+      <p class="piege"><strong>Le piège</strong> — Ce que vous avez patché à la main n’est jamais déplacé : on complète un patch, on ne le refait pas dans votre dos. Et un projecteur plus gourmand qu’un circuit entier est refusé et nommé, jamais casé de force.</p>
+    </div>
 
-    <h2 class="titre reveal">5. Your data and your backups</h2>
-    <p class="intro reveal">Lumika performs no automatic backup. Your lighting plan lives in a database file on your machine.</p>
-    <p class="intro reveal">A disk failure, a theft or a slip of the hand can destroy it. Copy it elsewhere regularly, and check now and then that the copy opens.</p>
-
-    <h2 class="titre reveal">6. No warranty</h2>
-    <p class="intro reveal">Lumika is provided as is, with no warranty of uninterrupted operation or freedom from error. Software can contain defects, including in calculations.</p>
-    <p class="intro reveal">Do not rely blindly on a channel allocation, on an overlap check, or on a patch sheet.</p>
-
-    <h2 class="titre reveal">7. Limitation of liability</h2>
-    <p class="intro reveal">To the extent permitted by law, the publisher is not liable for damages arising from the use of Lumika: loss of data, interruption of a performance, damaged equipment, or damage to property or persons.</p>
-    <p class="intro reveal">This limitation does not apply in cases of gross negligence or intent, nor where the law imposes liability that cannot be excluded. Depending on your country, some of these exclusions may have no effect on you.</p>
-
-    <h2 class="titre reveal">8. Acceptance</h2>
-    <p class="intro reveal">By using Lumika you acknowledge that you have read these terms and accepted that the safety of your electrical installation and of your rigging is your responsibility alone.</p>
-    <p class="intro reveal">If you do not accept these terms, do not use the application.</p>
+    <h2 class="titre reveal">5. Vérifier, puis imprimer</h2>
+    <p class="intro reveal">Les deux écrans qu’on regarde en dernier, et qui font gagner la soirée.</p>
+    <div class="card reveal">
+      <h3>La vue de scène</h3>
+      <p>Onglet Scène. Le plateau vu du dessus, les perches à leur distance. L’écran des perches montre le gril de face ; celui-ci montre la profondeur, et c’est elle qui décide de tout — une face qui vient de trop loin écrase les volumes.</p>
+    </div>
+    <div class="card reveal">
+      <h3>La feuille de patch</h3>
+      <p>Onglet Feuille, bouton Imprimer. C’est le document qu’on emporte au montage : trié par patch et non par numéro d’appareil, parce qu’on ne cherche pas « où est le 12 » mais « qu’est-ce qu’il y a sur le circuit 7 ».</p>
+      <p class="piege"><strong>Le piège</strong> — Les appareils sans patch sont listés en tête, exprès. Un appareil accroché que personne n’a patché, c’est ce qu’on découvre au noir.</p>
+    </div>
   </section>
 </main>
 
 <footer>
   <div class="wrap">
     <div class="famille">
-      <img src="../lumika.svg" alt="Acustika" width="28" height="28" />
-      <img src="../resonlab.svg" alt="ResonLab" width="28" height="28" />
+      <img src="lumika.svg" alt="Acustika" width="28" height="28" />
+      <img src="resonlab.svg" alt="ResonLab" width="28" height="28" />
     </div>
-    <p><strong>Lumika</strong> — an application by <a href="https://resonlab.github.io">ResonLab</a>, Valais, Switzerland.</p>
+    <p><strong>Lumika</strong> — une application de <a href="https://resonlab.github.io">ResonLab</a>, Valais, Suisse.</p>
     <p><a href="mailto:resonlab@proton.me">resonlab@proton.me</a> · <a href="https://github.com/ResonLab/lumika">github.com/ResonLab/lumika</a></p>
-    <p>Free software, MIT licence.</p>
-    <p><a href="terms.html">Terms of use</a></p>
+    <p>Logiciel libre, sous licence MIT.</p>
+    <p><a href="conditions.html">Conditions d'utilisation</a></p>
   </div>
 </footer>
 
