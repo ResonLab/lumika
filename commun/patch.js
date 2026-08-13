@@ -207,7 +207,19 @@ export function repartirSurCircuits(projecteursTrad, gradateurs, marge = MARGE_C
     }
   }
 
-  const cle = (g, n) => `${g} ${n}`
+  /**
+   * La cle d un circuit : le nom du bloc, un separateur, le numero.
+   *
+   * **Le separateur est un octet nul, ecrit \u0000 et non pose litteralement
+   * dans la source.** Un vrai octet nul s y trouvait au premier jet, invisible
+   * a la relecture. C est la troisieme fois qu un caractere de controle finit
+   * dans un fichier de cette maison, d ou le garde-fou de tests/application.mjs.
+   *
+   * Un espace ne conviendrait pas : « Bloc A » au circuit 1 donnerait la meme
+   * cle que « Bloc » au circuit « A 1 ». Un nom de bloc peut contenir n importe
+   * quoi, sauf un octet nul.
+   */
+  const cle = (g, n) => `${g}\u0000${n}`
   const parCle = new Map(circuits.map((c) => [cle(c.gradateur, c.numero), c]))
 
   // D'abord ceux que le régisseur a déjà placés : ils tiennent leur place.

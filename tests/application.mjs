@@ -35,6 +35,44 @@ const recopies = ['function controlerPatch', 'function repartirSurCircuits', 'fu
   .filter((nom) => plan.includes(nom))
 verifier('le domaine ne redéfinit aucune fonction de calcul', recopies.length === 0, recopies.join(', '))
 
+console.log('\n=== Aucun caractere de controle dans les sources ===')
+
+/**
+ * **Un caractere invisible dans le code contredit « du code simple a relire ».**
+ *
+ * Troisieme occurrence dans cette maison, et la premiere ici : commun/patch.js
+ * portait un vrai octet nul comme separateur de cle, la ou la source devait lire
+ * la sequence d echappement. Il fonctionnait — un octet nul est meme un bon
+ * separateur — mais il ne se voyait pas a la relecture.
+ *
+ * Les deux precedentes ont coute plus cher : un octet 0x08 dans Site/verifier.mjs
+ * y a tue deux controles, parce qu un motif ecrit avec un caractere invisible ne
+ * correspond jamais et rend zero des deux cotes — donc toujours egaux, donc
+ * toujours OK.
+ *
+ * Tabulation, saut de ligne et retour chariot sont legitimes ; le reste non.
+ */
+for (const fichier of [
+  'commun/patch.js',
+  'src/partage/i18n.ts',
+  'src/partage/types.ts',
+  'src/partage/conditions.ts',
+  'src/main/db/schema.sql'
+]) {
+  const contenu = lire(fichier)
+  const invisibles = [...contenu].filter((c) => {
+    const code = c.charCodeAt(0)
+    return (code < 32 && code !== 9 && code !== 10 && code !== 13) || code === 127
+  })
+  const codes = [...new Set(invisibles.map((c) => '0x' + c.charCodeAt(0).toString(16)))]
+  verifier(
+    `${fichier} : aucun caractere de controle`,
+    invisibles.length === 0,
+    codes.length > 0 ? `${invisibles.length} trouve(s) : ${codes.join(', ')}` : ''
+  )
+}
+
+
 console.log('\n=== La couche métier reste sans Electron ===')
 
 // Règle de la maison : ce qui est dans domaines/ doit pouvoir tourner ailleurs
