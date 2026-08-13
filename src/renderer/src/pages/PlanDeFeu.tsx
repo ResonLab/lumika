@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import type { Appareil, AppareilDetaille, Gradateur, Materiel, Perche } from '../../../partage/types'
 import { t, traduireErreur } from '../../../partage/i18n'
+import { GELATINES, couleurGelatine } from '../../../../commun/gelatines.js'
 
 /**
  * Le plan de feu : les appareils posés, leur perche, leur patch.
@@ -191,10 +192,32 @@ export default function PlanDeFeu(): React.JSX.Element {
           </label>
           <label>
             {t('plan.gelatine')}
-            <input
-              value={brouillon.gelatine}
-              onChange={(e) => setBrouillon({ ...brouillon, gelatine: e.target.value })}
-            />
+            {/* Une `datalist` propose sans imposer : la saisie reste libre, ce
+                qui est la décision de conception de ce référentiel. Un théâtre
+                a toujours une gélatine hors catalogue, et un plan de feu qui
+                refuse la réalité ne sert plus à rien. */}
+            <span className="gelatine-saisie">
+              <input
+                list="gelatines-courantes"
+                value={brouillon.gelatine}
+                onChange={(e) => setBrouillon({ ...brouillon, gelatine: e.target.value })}
+              />
+              {couleurGelatine(brouillon.gelatine) && (
+                <i
+                  className="gelatine-pastille"
+                  style={{ background: couleurGelatine(brouillon.gelatine) ?? undefined }}
+                  title={t('plan.gelatineApprox')}
+                />
+              )}
+            </span>
+            <datalist id="gelatines-courantes">
+              {GELATINES.map((gel) => (
+                <option key={gel.reference} value={gel.reference}>
+                  {gel.fabricant} {gel.nom}
+                </option>
+              ))}
+            </datalist>
+            <small className="discret">{t('plan.gelatineLibre')}</small>
           </label>
           <label>
             {t('plan.gobo')}

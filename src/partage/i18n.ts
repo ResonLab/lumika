@@ -91,6 +91,14 @@ const TEXTES = {
   },
   'plan.fonction': { fr: 'Fonction', en: 'Purpose' },
   'plan.gelatine': { fr: 'Gélatine', en: 'Gel' },
+  'plan.gelatineApprox': {
+    fr: 'Couleur approchée : un écran émet, une gélatine filtre. La pastille sert à repérer une erreur grossière, pas à juger d’une teinte.',
+    en: 'Approximate colour: a screen emits, a gel filters. The dot is there to catch a gross mistake, not to judge a hue.'
+  },
+  'plan.gelatineLibre': {
+    fr: 'Le champ reste libre : une référence absente de la liste se saisit telle quelle.',
+    en: 'The field stays free: a reference missing from the list is entered as is.'
+  },
   'plan.gobo': { fr: 'Gobo', en: 'Gobo' },
   'plan.nonAccroche': { fr: 'non accroché', en: 'not hung' },
   'plan.vide': {

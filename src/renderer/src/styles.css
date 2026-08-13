@@ -434,3 +434,34 @@ li {
     color: #000;
   }
 }
+
+/* ── La pastille de couleur d'une gélatine ────────────────────────────────
+   Elle n'apparaît que lorsque la référence est reconnue. Une pastille grise
+   par défaut se confondrait avec une diffusion neutre, et le régisseur
+   croirait sa saisie reconnue alors qu'elle ne l'est pas.
+
+   La couleur est approchée : un écran émet de la lumière, une gélatine en
+   filtre. Elle sert à repérer un rose là où on attendait un bleu — pas à
+   juger d'une teinte. Le titre au survol le dit. */
+.gelatine-pastille {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 7px;
+  vertical-align: -1px;
+  /* Un contour, sinon une diffusion presque blanche disparaît sur fond clair
+     et une gélatine sombre disparaît sur fond sombre. */
+  border: 1px solid rgba(128, 128, 128, 0.55);
+  flex: none;
+}
+
+.gelatine-saisie {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.gelatine-saisie input {
+  flex: 1;
+}

@@ -12,7 +12,7 @@ reste**.
 
 ```bash
 cd Lumika && npm install && npm run dev
-cd Lumika && npm run verifier   # typecheck + 5 suites
+cd Lumika && npm run verifier   # typecheck + 7 suites
 ```
 
 | Écran | Ce qu'il fait |
@@ -173,6 +173,42 @@ corrigé, et ça n'a rien changé.*
 
 ---
 
+## 3 bis. Le référentiel de gélatines — fait le 13 août 2026
+
+`commun/gelatines.js` reconnaît les références courantes — Lee et Rosco — et
+rend une **couleur approchée**. Le plan de feu propose la liste à la saisie et
+affiche une pastille ; la feuille de patch affiche la pastille aussi.
+
+**La décision qui structure ce fichier : le champ reste libre.** Un théâtre a
+toujours dans ses tiroirs une gélatine hors catalogue — un fabricant qu'on n'a
+pas prévu, un reste d'une production précédente, un morceau de diffusion coupé à
+la main. Une liste fermée obligerait le régisseur à mentir sur son plan, **et un
+plan qui ment ne sert plus à rien**. Le module ne valide donc rien : il
+reconnaît ce qu'il peut, le reste passe tel quel.
+
+**Trois choix qui se défendent :**
+
+- **la liste est volontairement courte.** Les catalogues comptent des centaines
+  de références ; en recopier trois cents dont personne n'utilise deux cent
+  cinquante ne rend pas la saisie plus rapide, ça la noie ;
+- **une saisie inconnue ne rend aucune couleur**, jamais une couleur par défaut.
+  Une pastille grise se confondrait avec une diffusion neutre, et le régisseur
+  croirait sa saisie reconnue ;
+- **la couleur est approchée, et l'écran le dit.** Un écran émet, une gélatine
+  filtre : la même référence rend autrement selon la lampe et l'intensité. La
+  pastille sert à repérer un rose là où on attendait un bleu, pas à juger d'une
+  teinte.
+
+La saisie est tolérante — « L201 », « l 201 », « LEE201 » et « 201 » mènent au
+même endroit — parce qu'un régisseur qui tape vite ne doit pas être puni pour
+cela. Un numéro nu est ambigu (`114` existe chez les deux fabricants) : on rend
+le premier, et la suggestion de saisie propose la référence complète.
+
+Vingt cas, **cinq sabotages, cinq échecs**. Plusieurs existent uniquement pour
+vérifier qu'une saisie inconnue **passe** au lieu d'être corrigée de force.
+
+---
+
 ## 4. Structure
 
 ```
@@ -188,8 +224,8 @@ src/
     ipc/                le branchement sur la fenêtre, rien d'autre
   partage/              types.ts, i18n.ts
   preload/index.ts      le pont sécurisé
-  renderer/src/pages/   les quatre écrans
-tests/                  3 suites — `npm run verifier`
+  renderer/src/pages/   les six écrans
+tests/                  7 suites — `npm run verifier`
 ```
 
 **La couche base ne connaît ni Electron ni l'empaqueteur.** Le schéma arrive en
@@ -206,27 +242,40 @@ internes portent leur extension `.ts`. Même procédé que Nexika.
 
 ## 5. Ce qui reste à faire
 
-- **Aucune release, aucun site.** L'application se construit et se lance ; elle
-  n'a jamais été empaquetée ni installée sur une machine réelle.
-- **Le dépôt GitHub n'existe pas encore** — à créer dans l'organisation
-  ResonLab, comme les quatre autres.
-- **Pas de conditions d'utilisation**, alors que le calcul de puissance en
-  demande : c'est le même risque électrique que Scenika. Reprendre
-  `Scenika/src/partage/conditions.ts` + `scripts/publier-conditions.mjs` +
-  `tests/coherence-conditions.mjs`.
-- **Pas de plan de scène dessiné.** La vue des perches est une vue de face du
-  gril ; une vue du dessus, avec la scène et les perches à leur distance,
-  reste à faire. C'est ce qu'un régisseur imprime.
-- **Pas de feuille de patch imprimable.** C'est le document qu'on emporte au
-  montage, et c'est probablement la fonction la plus utile qui manque.
+> **Cette section mentait, et elle a été corrigée le 13 août 2026.** Elle
+> annonçait encore « aucune release, aucun site, pas de conditions, pas de plan
+> de scène, pas de feuille de patch » alors que l'en-tête du même fichier disait
+> « six écrans, bilingue, 0.1.0 publiée ». Les deux se contredisaient à trois
+> pages d'écart. *Une documentation non vérifiée dérive* — et sa forme la moins
+> soupçonnée est celle-ci : annoncer comme à faire du travail déjà fait, ce qui
+> pousse à le refaire.
+
+**Fait depuis** : le dépôt `ResonLab/lumika`, le site bilingue, les conditions
+d'utilisation avec écran d'acceptation, le plan de scène vu du dessus, la
+feuille de patch imprimable, le guide de prise en main en page et en PDF, et la
+**0.1.0 publiée** pour Windows et Linux.
+
+**Reste vraiment :**
+
+- **Aucun installateur n'a été installé ni lancé sur une machine réelle.** Ils
+  se construisent et passent les suites, c'est tout ce qui est prouvé, et la
+  note de release le dit. Réserve commune aux quatre applications.
+- **Les installateurs ne sont pas signés** : Windows affiche un avertissement
+  SmartScreen.
 - **Pas de multi-postes.** Un théâtre a un régisseur et des techniciens ; Nexika
   pourrait servir ici comme il sert Ohmnia et Scenika. À décider, pas à faire
   par réflexe.
-- **Le module DMX est proche de celui de Scenika.** `commun/patch.js` et
-  `Scenika/commun/dmx.js` traitent tous deux le chevauchement dans un univers.
-  Ils divergeront. **La bonne réponse est celle qu'on a déjà appliquée à
-  Nexika** : en faire un paquet partagé. À faire avant que les deux ne se
-  contredisent.
+- **Le module DMX est proche de celui de Scenika — et il reste tel quel, c'est
+  une décision, pas un oubli.** Un premier jet de cette page réclamait d'en
+  faire un paquet partagé « avant que les deux ne se contredisent ». L'examen a
+  conclu l'inverse, et le LISEZ-MOI porte la décision : le recouvrement réel est
+  d'une soixantaine de lignes d'arithmétique stable — 512 canaux, une plage
+  contiguë, un chevauchement, les trous — et un cinquième dépôt se paierait à
+  chaque correctif, npm gardant le clone git dans `node_modules`. **Extraire le
+  jour où un troisième consommateur apparaît, ou si une divergence mord.**
+
+  Le point à surveiller, si l'un des deux bouge : **la borne du chevauchement
+  est inclusive des deux côtés** — un chevauchement d'un seul canal en est un.
 
 ---
 

@@ -10,7 +10,7 @@ sur votre machine : pas de compte, pas d'abonnement, aucune connexion.
 ```bash
 npm install
 npm run dev        # lance l'application
-npm run verifier   # typecheck + 3 suites de tests
+npm run verifier   # typecheck + 7 suites de tests
 ```
 
 ## Ce qu'elle fait

@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { AppareilDetaille, Gradateur } from '../../../partage/types'
+import { couleurGelatine } from '../../../../commun/gelatines.js'
 import { t } from '../../../partage/i18n'
 
 /**
@@ -123,7 +124,16 @@ export default function FeuilleDePatch(): React.JSX.Element {
                   <td>{a.designation}</td>
                   <td>{a.perche ?? t('plan.nonAccroche')}</td>
                   <td>{a.puissance}</td>
-                  <td>{a.gelatine || '—'}</td>
+                  <td>
+                    {couleurGelatine(a.gelatine) && (
+                      <i
+                        className="gelatine-pastille"
+                        style={{ background: couleurGelatine(a.gelatine) ?? undefined }}
+                        title={t('plan.gelatineApprox')}
+                      />
+                    )}
+                    {a.gelatine || '—'}
+                  </td>
                   <td>{a.fonction || '—'}</td>
                 </tr>
               ))}
