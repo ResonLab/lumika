@@ -31,7 +31,7 @@
     --fg-dim: #9d97ab;
     --fg-faint: #6f6a80;
     --lien: #FF7EB6;
-    /* Le dégradé d'Acustika : le violet de la salle. */
+    /* Le dégradé de Lumika : le rose et le grenat d'un projecteur teinté. */
     --grad: linear-gradient(120deg, #FF7EB6, #A8154F);
     --aurora-op: .30;
     --radius: 14px;
@@ -63,7 +63,7 @@
   @media (prefers-reduced-motion: no-preference) {
     ::view-transition-old(root) { animation: sortiePage .32s cubic-bezier(.4,0,1,1) both; }
     ::view-transition-new(root) { animation: entreePage .48s cubic-bezier(.16,1,.3,1) both; }
-    header .brand img { view-transition-name: logo-acustika; }
+    header .brand img { view-transition-name: logo-lumika; }
   }
   @keyframes sortiePage { to { opacity: 0; transform: translateY(-14px) scale(.99); } }
   @keyframes entreePage { from { opacity: 0; transform: translateY(20px) scale(.995); } }
@@ -402,7 +402,7 @@
 <footer>
   <div class="wrap">
     <div class="famille">
-      <img src="../lumika.svg" alt="Acustika" width="28" height="28" />
+      <img src="../lumika.svg" alt="Lumika" width="28" height="28" />
       <img src="../resonlab.svg" alt="ResonLab" width="28" height="28" />
     </div>
     <p><strong>Lumika</strong> — an application by <a href="https://resonlab.github.io">ResonLab</a>, Valais, Switzerland.</p>
