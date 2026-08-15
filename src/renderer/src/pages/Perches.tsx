@@ -21,7 +21,19 @@ const VIDE: Omit<Perche, 'id'> = {
 export default function Perches(): React.JSX.Element {
   const [perches, setPerches] = useState<Perche[]>([])
   const [appareils, setAppareils] = useState<AppareilDetaille[]>([])
-  const [brouillon, setBrouillon] = useState<Omit<Perche, 'id'>>(VIDE)
+  /**
+   * La perche en cours de saisie — neuve, ou reprise pour correction.
+   *
+   * **`perches:modifier` existait de bout en bout et aucun bouton ne
+   * l'appelait** : on pouvait ajouter et supprimer une perche, jamais corriger
+   * sa distance ou sa hauteur. Or ce sont précisément les deux chiffres qu'on
+   * relève au mètre sur le gril et qu'on saisit de travers. Supprimer pour
+   * re-saisir emportait les appareils accrochés dessus.
+   *
+   * Un seul formulaire pour les deux cas, la présence d'un `id` les distingue.
+   * Défaut trouvé par `tests/atteignable.mjs`.
+   */
+  const [brouillon, setBrouillon] = useState<Perche | Omit<Perche, 'id'>>(VIDE)
   const [erreur, setErreur] = useState('')
 
   async function recharger(): Promise<void> {
@@ -33,10 +45,11 @@ export default function Perches(): React.JSX.Element {
     recharger()
   }, [])
 
-  async function ajouter(): Promise<void> {
+  async function enregistrer(): Promise<void> {
     setErreur('')
     try {
-      await window.api.perches.ajouter(brouillon)
+      if ('id' in brouillon) await window.api.perches.modifier(brouillon)
+      else await window.api.perches.ajouter(brouillon)
       setBrouillon(VIDE)
       await recharger()
     } catch (e) {
@@ -98,7 +111,14 @@ export default function Perches(): React.JSX.Element {
           </label>
         </div>
         <div className="barre-boutons">
-          <button onClick={ajouter}>{t('action.ajouter')}</button>
+          <button onClick={enregistrer}>
+            {'id' in brouillon ? t('action.enregistrer') : t('action.ajouter')}
+          </button>
+          {'id' in brouillon && (
+            <button className="discret" onClick={() => setBrouillon(VIDE)}>
+              {t('action.annuler')}
+            </button>
+          )}
         </div>
         <p className="discret">{t('perche.distanceExplication')}</p>
       </div>
@@ -118,6 +138,9 @@ export default function Perches(): React.JSX.Element {
                       {perche.distance} m · {perche.hauteur} m · {perche.longueur} m ·{' '}
                       {t('perche.appareils', { nombre: dessus.length })}
                     </span>
+                    <button className="discret" onClick={() => setBrouillon({ ...perche })}>
+                      {t('action.modifier')}
+                    </button>
                     <button className="discret" onClick={() => supprimer(perche.id)}>
                       {t('action.supprimer')}
                     </button>

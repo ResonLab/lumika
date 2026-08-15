@@ -221,6 +221,22 @@ tr.sous-seuil td {
   padding: 0.5rem 0;
 }
 
+/* ── Deux classes trouvées sans aucune règle ──────────────────────────────
+   `tests/atteignable.mjs` les a signalées : elles étaient posées sur des
+   éléments et rien ne les visait. La plus gênante est `.feuille`, plus bas :
+   c'est la feuille de patch qu'on emporte au montage. */
+
+/* Une perche du gril : son en-tête et sa barre forment un bloc, qu'il faut
+   pouvoir distinguer du suivant quand il y a douze perches à l'écran. */
+.perche-ligne {
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--trait);
+}
+
+.perche-ligne:last-child {
+  border-bottom: none;
+}
+
 .perche-entete {
   display: flex;
   align-items: center;
@@ -381,6 +397,28 @@ li {
    disparaît. */
 .titre-impression {
   display: none;
+}
+
+/*
+  La feuille de patch.
+
+  **Elle n'avait aucune règle**, alors que c'est le document qu'on imprime et
+  qu'on emmène : les colonnes s'affichaient à la largeur du texte, et rien ne
+  bornait la mesure de lecture. Les chiffres passent en chasse fixe — un patch
+  se lit en colonne, adresse sous adresse, et c'est comme cela qu'on repère un
+  trou.
+*/
+.feuille {
+  font-variant-numeric: tabular-nums;
+}
+
+.feuille table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.feuille h2 {
+  margin-top: 1.4rem;
 }
 
 @media print {

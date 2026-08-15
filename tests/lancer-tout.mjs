@@ -10,6 +10,7 @@ const SUITES = [
   ['Gélatines', 'gelatines.mjs'],
   ['Traductions', 'traductions.mjs'],
   ['Effets React et leurs dépendances', 'effets-react.mjs'],
+  ['Ce qui existe est-il atteignable', 'atteignable.mjs'],
   ['Cohérence du site', 'coherence-site.mjs'],
   ['Cohérence des conditions', 'coherence-conditions.mjs'],
   ['Cohérence du guide', 'coherence-guide.mjs']

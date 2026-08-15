@@ -32,7 +32,20 @@ export default function PlanDeFeu(): React.JSX.Element {
   const [projecteurs, setProjecteurs] = useState<Materiel[]>([])
   const [perches, setPerches] = useState<Perche[]>([])
   const [gradateurs, setGradateurs] = useState<Gradateur[]>([])
-  const [brouillon, setBrouillon] = useState<Omit<Appareil, 'id'>>(VIDE)
+  /**
+   * L'appareil en cours de saisie — neuf, ou repris pour correction.
+   *
+   * **`appareils:modifier` existait de bout en bout et aucun bouton ne
+   * l'appelait.** On posait un projecteur sur le plan et on ne pouvait plus
+   * rien y toucher : ni son circuit, ni son adresse, ni sa gélatine, ni la
+   * perche qui le porte. Or le patch d'un plan de feu se corrige jusqu'au
+   * dernier moment. Supprimer pour reposer faisait perdre le numéro, et le
+   * numéro est ce que le régisseur appelle à la conduite.
+   *
+   * Un seul formulaire pour les deux cas, la présence d'un `id` les distingue.
+   * Défaut trouvé par `tests/atteignable.mjs`.
+   */
+  const [brouillon, setBrouillon] = useState<Appareil | Omit<Appareil, 'id'>>(VIDE)
   const [erreur, setErreur] = useState('')
 
   async function recharger(): Promise<void> {
@@ -49,18 +62,24 @@ export default function PlanDeFeu(): React.JSX.Element {
   const modele = projecteurs.find((p) => p.id === brouillon.materielId)
   const estDmx = modele?.genre === 'dmx'
 
-  async function ajouter(): Promise<void> {
+  async function enregistrer(): Promise<void> {
     setErreur('')
     try {
       // Le patch qui ne correspond pas au genre est effacé avant l'envoi :
       // laisser traîner une adresse sur un appareil traditionnel ferait
       // échouer la validation sur un champ que l'écran n'affiche même plus.
-      await window.api.appareils.ajouter({
+      // Le patch qui ne correspond pas au genre est effacé de la même façon
+      // dans les deux cas : une correction qui laisserait traîner une adresse
+      // sur un appareil devenu traditionnel serait refusée sur un champ que
+      // l'écran n'affiche plus.
+      const aEnvoyer = {
         ...brouillon,
         gradateurId: estDmx ? null : brouillon.gradateurId,
         circuit: estDmx ? null : brouillon.circuit,
         adresseDmx: estDmx ? brouillon.adresseDmx : null
-      })
+      }
+      if ('id' in aEnvoyer) await window.api.appareils.modifier(aEnvoyer)
+      else await window.api.appareils.ajouter(aEnvoyer)
       setBrouillon({ ...VIDE, materielId: brouillon.materielId })
       await recharger()
     } catch (e) {
@@ -228,9 +247,17 @@ export default function PlanDeFeu(): React.JSX.Element {
           </label>
         </div>
         <div className="barre-boutons">
-          <button onClick={ajouter} disabled={brouillon.materielId === 0}>
-            {t('action.ajouter')}
+          <button onClick={enregistrer} disabled={brouillon.materielId === 0}>
+            {'id' in brouillon ? t('action.enregistrer') : t('action.ajouter')}
           </button>
+          {'id' in brouillon && (
+            <button
+              className="discret"
+              onClick={() => setBrouillon({ ...VIDE, materielId: brouillon.materielId })}
+            >
+              {t('action.annuler')}
+            </button>
+          )}
         </div>
         <p className="discret">{t('plan.lateralExplication')}</p>
       </div>
@@ -263,6 +290,28 @@ export default function PlanDeFeu(): React.JSX.Element {
                   <td>{a.fonction}</td>
                   <td>{a.gelatine}</td>
                   <td>
+                    <button
+                      className="discret"
+                      onClick={() =>
+                        setBrouillon({
+                          id: a.id,
+                          materielId: a.materielId,
+                          percheId: a.percheId,
+                          lateral: a.lateral,
+                          numero: a.numero,
+                          gradateurId: a.gradateurId,
+                          circuit: a.circuit,
+                          univers: a.univers,
+                          adresseDmx: a.adresseDmx,
+                          gelatine: a.gelatine,
+                          gobo: a.gobo,
+                          fonction: a.fonction,
+                          notes: a.notes
+                        })
+                      }
+                    >
+                      {t('action.modifier')}
+                    </button>
                     <button className="discret" onClick={() => supprimer(a.id)}>
                       {t('action.supprimer')}
                     </button>

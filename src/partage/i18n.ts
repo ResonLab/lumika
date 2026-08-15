@@ -30,6 +30,8 @@ const TEXTES = {
   // --- Actions communes ---
   'action.ajouter': { fr: 'Ajouter', en: 'Add' },
   'action.annuler': { fr: 'Annuler', en: 'Cancel' },
+  'action.modifier': { fr: 'Modifier', en: 'Edit' },
+  'action.enregistrer': { fr: 'Enregistrer', en: 'Save' },
   'action.supprimer': { fr: 'Supprimer', en: 'Delete' },
   'action.rien': { fr: 'Rien pour l’instant.', en: 'Nothing yet.' },
 

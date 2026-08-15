@@ -29,7 +29,16 @@ export default function Inventaire(): React.JSX.Element {
   const [materiel, setMateriel] = useState<Materiel[]>([])
   const [alertes, setAlertes] = useState<Materiel[]>([])
   const [nature, setNature] = useState<NatureMateriel>('projecteur')
-  const [brouillon, setBrouillon] = useState<Omit<Materiel, 'id'>>(VIDE)
+  /**
+   * L'élément en cours de saisie — neuf, ou repris pour correction.
+   *
+   * **`inventaire:modifier` existait de bout en bout et aucun bouton ne
+   * l'appelait.** On pouvait ajouter et supprimer un projecteur du stock, jamais corriger sa puissance ni son nombre de canaux — les deux chiffres dont dépendent la charge des gradateurs et le patch.
+   *
+   * Un seul formulaire pour les deux cas, la présence d'un `id` les distingue.
+   * Défaut trouvé par `tests/atteignable.mjs`.
+   */
+  const [brouillon, setBrouillon] = useState<Materiel | Omit<Materiel, 'id'>>(VIDE)
   const [erreur, setErreur] = useState('')
 
   async function recharger(): Promise<void> {
@@ -41,10 +50,11 @@ export default function Inventaire(): React.JSX.Element {
     recharger()
   }, [])
 
-  async function ajouter(): Promise<void> {
+  async function enregistrer(): Promise<void> {
     setErreur('')
     try {
-      await window.api.inventaire.ajouter({ ...brouillon, nature })
+      if ('id' in brouillon) await window.api.inventaire.modifier({ ...brouillon, nature })
+      else await window.api.inventaire.ajouter({ ...brouillon, nature })
       setBrouillon({ ...VIDE, nature })
       await recharger()
     } catch (e) {
@@ -194,7 +204,14 @@ export default function Inventaire(): React.JSX.Element {
           </label>
         </div>
         <div className="barre-boutons">
-          <button onClick={ajouter}>{t('action.ajouter')}</button>
+          <button onClick={enregistrer}>
+            {'id' in brouillon ? t('action.enregistrer') : t('action.ajouter')}
+          </button>
+          {'id' in brouillon && (
+            <button className="discret" onClick={() => setBrouillon({ ...VIDE, nature })}>
+              {t('action.annuler')}
+            </button>
+          )}
         </div>
         <p className="discret">{t('inv.seuilZero')}</p>
       </div>
@@ -230,6 +247,9 @@ export default function Inventaire(): React.JSX.Element {
                   {nature === 'lampe' && <td>{m.culot}</td>}
                   <td>{m.quantite}</td>
                   <td>
+                    <button className="discret" onClick={() => setBrouillon({ ...m })}>
+                      {t('action.modifier')}
+                    </button>
                     <button className="discret" onClick={() => supprimer(m.id)}>
                       {t('action.supprimer')}
                     </button>

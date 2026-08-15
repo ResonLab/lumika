@@ -24,7 +24,16 @@ export default function Patch(): React.JSX.Element {
   const [gradateurs, setGradateurs] = useState<Gradateur[]>([])
   const [etat, setEtat] = useState<EtatPatch | null>(null)
   const [repartition, setRepartition] = useState<Repartition | null>(null)
-  const [brouillon, setBrouillon] = useState<Omit<Gradateur, 'id'>>(VIDE)
+  /**
+   * L'élément en cours de saisie — neuf, ou repris pour correction.
+   *
+   * **`gradateurs:modifier` existait de bout en bout et aucun bouton ne
+   * l'appelait.** On ne pouvait corriger ni l'adresse DMX d'un bloc, ni son nombre de circuits. Or **un bloc de gradateurs occupe lui-même des canaux DMX** : une adresse fausse allume des circuits au hasard sur le plateau, et c'est le piège que Lumika existe pour éviter.
+   *
+   * Un seul formulaire pour les deux cas, la présence d'un `id` les distingue.
+   * Défaut trouvé par `tests/atteignable.mjs`.
+   */
+  const [brouillon, setBrouillon] = useState<Gradateur | Omit<Gradateur, 'id'>>(VIDE)
   const [erreur, setErreur] = useState('')
 
   async function recharger(): Promise<void> {
@@ -44,10 +53,11 @@ export default function Patch(): React.JSX.Element {
     recharger()
   }, [])
 
-  async function ajouter(): Promise<void> {
+  async function enregistrer(): Promise<void> {
     setErreur('')
     try {
-      await window.api.gradateurs.ajouter(brouillon)
+      if ('id' in brouillon) await window.api.gradateurs.modifier(brouillon)
+      else await window.api.gradateurs.ajouter(brouillon)
       setBrouillon(VIDE)
       await recharger()
     } catch (e) {
@@ -148,7 +158,14 @@ export default function Patch(): React.JSX.Element {
           </label>
         </div>
         <div className="barre-boutons">
-          <button onClick={ajouter}>{t('action.ajouter')}</button>
+          <button onClick={enregistrer}>
+            {'id' in brouillon ? t('action.enregistrer') : t('action.ajouter')}
+          </button>
+          {'id' in brouillon && (
+            <button className="discret" onClick={() => setBrouillon(VIDE)}>
+              {t('action.annuler')}
+            </button>
+          )}
         </div>
 
         {gradateurs.length > 0 && (
@@ -162,6 +179,9 @@ export default function Patch(): React.JSX.Element {
                   </td>
                   <td>{g.circuits} × {g.capaciteParCircuit} W</td>
                   <td>
+                    <button className="discret" onClick={() => setBrouillon({ ...g })}>
+                      {t('action.modifier')}
+                    </button>
                     <button className="discret" onClick={() => supprimer(g.id)}>
                       {t('action.supprimer')}
                     </button>
