@@ -257,11 +257,15 @@ feuille de patch imprimable, le guide de prise en main en page et en PDF, et la
 
 **Reste vraiment :**
 
-- **Aucun installateur n'a été installé ni lancé sur une machine réelle.** Ils
-  se construisent et passent les suites, c'est tout ce qui est prouvé, et la
-  note de release le dit. Réserve commune aux quatre applications.
-- **Les installateurs ne sont pas signés** : Windows affiche un avertissement
-  SmartScreen.
+- **L'installateur de Lumika n'a jamais été installé ni lancé sur une machine
+  réelle.** Il se construit et passe les suites, c'est tout ce qui est prouvé, et
+  la note de release le dit. *La réserve était commune aux quatre applications ;
+  elle ne l'est plus depuis le 16 août 2026 — Ohmnia a été installée et lancée.
+  Elle tient pour Lumika, Scenika et Acustika.*
+- **Les installateurs ne sont pas signés** : Windows **peut** afficher un
+  avertissement SmartScreen. *Il ne s'est pas déclenché sur celui d'Ohmnia le
+  16 août, mais cela dépend de la réputation du fichier et du poste — voir
+  `../LISEZ-MOI.md`. Ne pas en faire une promesse dans un sens ni dans l'autre.*
 - **Pas de multi-postes.** Un théâtre a un régisseur et des techniciens ; Nexika
   pourrait servir ici comme il sert Ohmnia et Scenika. À décider, pas à faire
   par réflexe.
